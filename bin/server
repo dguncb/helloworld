@@ -1,27 +1,16 @@
-#!/usr/bin/env node
+var express = require('express');
+var app = express();
+var fs = require("fs");
 
-var http = require('http'),
-    port = 8080,
-     url = 'http://localhost:' + port + '/';
-/* We can access nodejitsu enviroment variables from process.env */
-/* Note: the SUBDOMAIN variable will always be defined for a nodejitsu app */
-if(process.env.SUBDOMAIN){
-  url = 'http://' + process.env.SUBDOMAIN + '.jit.su/';
-}
-
-server.get('/listUsers', function (req, res) {
+app.get('/listUsers', function (req, res) {
    fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
       console.log( data );
       res.end( data );
    });
 })
 
-http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.write('hello, I know nodejitsu.');
-  res.end();
-}).listen(port);
-
-
-
-console.log('The http server has started at: ' + url);
+var server = app.listen(8081, function () {
+   var host = server.address().address
+   var port = server.address().port
+   console.log("Example app listening at http://%s:%s", host, port)
+})
