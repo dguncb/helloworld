@@ -6,7 +6,7 @@ rc=$?
 
 if [ $rc -eq 0 ]; then
     echo "Making post-invocation changes..."
-    cd /opt/app-root 
+    cd /opt/app-root/src 
     npm install express --save
 else
     echo "Error: assemble failed!"
